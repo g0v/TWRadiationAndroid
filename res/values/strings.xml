@@ -5,4 +5,6 @@
 	<string name="drawer_close">Close navigation drawer</string>
 	<string name="list_name_main">主畫面</string>
 	<string name="list_name_about">關於</string>
+
+	<string name="about_desc">輻射地圖 App，參考 http://u273.stark.tw/</string>
 </resources>

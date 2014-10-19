@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -26,6 +27,7 @@ public class MainActivity extends Activity {
     private String[] mNames;
 
     private static int IDX_FRAG_MAIN = 0;
+    private static int IDX_FRAG_ABOUT = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,10 +39,11 @@ public class MainActivity extends Activity {
 
         mNames = new String[2];
         mNames[IDX_FRAG_MAIN] = getString(R.string.list_name_main);
-        mNames[1] = getString(R.string.list_name_about);
+        mNames[IDX_FRAG_ABOUT] = getString(R.string.list_name_about);
 
         mDrawerList.setAdapter(new ArrayAdapter<CharSequence>(this,
                     R.layout.drawer_list_item, mNames));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mLayout,
@@ -99,10 +102,20 @@ public class MainActivity extends Activity {
         Fragment fragment = null;
         if (position == IDX_FRAG_MAIN) {
             fragment = new MainFrag();
+        } else if (position == IDX_FRAG_ABOUT) {
+            fragment = new AboutFrag();
         }
         if (fragment != null) {
             ft.replace(R.id.content_frame, fragment);
             ft.commit();
+            mLayout.closeDrawer(mDrawerList);
+        }
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            switchFragment(position);
         }
     }
 }

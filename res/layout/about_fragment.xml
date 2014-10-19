@@ -1,0 +1,21 @@
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<!-- Use webview might be better for manual -->
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<LinearLayout
+			android:layout_height="50dip"
+			android:layout_width="match_parent"
+			>
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_margin="20px"
+				android:text="@string/about_desc"
+				/>
+		</LinearLayout>
+	</RelativeLayout>
+</LinearLayout>
