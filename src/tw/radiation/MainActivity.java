@@ -3,6 +3,9 @@ package tw.radiation;
 import tw.radiation.R;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +25,8 @@ public class MainActivity extends Activity {
     private CharSequence mTitle;
     private String[] mNames;
 
+    private static int IDX_FRAG_MAIN = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +36,7 @@ public class MainActivity extends Activity {
         mDrawerList =  (ListView) findViewById(R.id.left_menu);
 
         mNames = new String[2];
-        mNames[0] = getString(R.string.list_name_main);
+        mNames[IDX_FRAG_MAIN] = getString(R.string.list_name_main);
         mNames[1] = getString(R.string.list_name_about);
 
         mDrawerList.setAdapter(new ArrayAdapter<CharSequence>(this,
@@ -61,6 +66,10 @@ public class MainActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+
+        if (savedInstanceState == null) {
+            switchFragment(IDX_FRAG_MAIN);
+        }
     }
 
     @Override
@@ -82,6 +91,19 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void switchFragment(int position) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        Fragment fragment = null;
+        if (position == IDX_FRAG_MAIN) {
+            fragment = new MainFrag();
+        }
+        if (fragment != null) {
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
+        }
     }
 }
 
