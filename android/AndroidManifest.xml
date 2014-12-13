@@ -20,5 +20,11 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<provider
+			android:name="tw.radiation.test.MockDataProvider"
+			android:authorities="tw.radiation.data.provider"
+			android:exported="false"
+			>
+		</provider>
 	</application>
 </manifest>
