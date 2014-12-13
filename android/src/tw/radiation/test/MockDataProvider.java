@@ -13,7 +13,11 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
+
+import com.google.gson.*;
 
 /* if you are going to make a really ContentProvider
  * you have to implement the function to provide data. */
@@ -21,11 +25,18 @@ import java.util.ArrayList;
 public class MockDataProvider extends ContentProvider {
 
     public static final Uri CONTENT_URI = Uri.parse(Radiation.AUTHORITY + "/incidents");
+    protected JsonObject mData;
 
     @Override
     public boolean onCreate() {
         Log.d(Radiation.TAG, "mock data provider on create");
-        AssetManager am = this.getContext().getAssets();
+        try {
+            AssetManager am = this.getContext().getAssets();
+            Reader reader = new InputStreamReader(am.open("incidents-sample.json"));
+            mData = (new JsonParser()).parse(reader).getAsJsonObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
